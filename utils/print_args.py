@@ -1,0 +1,38 @@
+def print_args(args):
+    print("\033[1m" + "Basic Config" + "\033[0m")
+    print(f'  {"Model ID:":<20}{args.model_id:<20}{"Is Training:":<20}{args.is_training:<20}')
+    print()
+
+    print("\033[1m" + "Data" + "\033[0m")
+    print(f'  {"Data:":<20}{args.data:<20}{"Root Path:":<20}{args.root_path:<20}')
+    print(f'  {"Data Path:":<20}{args.data_path:<20}{"Features:":<20}{args.features:<20}')
+    print(f'  {"Target:":<20}{args.target:<20}{"Freq:":<20}{args.freq:<20}')
+    print(f'  {"Checkpoints:":<20}{args.checkpoints:<20}')
+    print()
+
+    print("\033[1m" + "Forecast Window" + "\033[0m")
+    print(f'  {"Seq Len:":<20}{args.seq_len:<20}{"Pred Len:":<20}{args.pred_len:<20}')
+    print(f'  {"Inverse:":<20}{args.inverse:<20}')
+    print()
+
+    print("\033[1m" + "DRTS" + "\033[0m")
+    print(f'  {"Enc In:":<20}{args.enc_in:<20}{"N Period:":<20}{args.n_period:<20}')
+    print(f'  {"Topm:":<20}{args.topm:<20}{"Spatial Topm:":<20}{args.spatial_top_m:<20}')
+    print(f'  {"Decomp Kernel:":<20}{args.decomp_kernel:<20}{"Seasonal Ker:":<20}{args.seasonal_kernel:<20}')
+    print(f'  {"STL Period:":<20}{args.stl_period:<20}{"Comp Weights:":<20}{args.component_weights:<20}')
+    print(f'  {"Retr Bsz:":<20}{args.retrieval_batch_size:<20}{"Lazy STL:":<20}{args.component_lazy_full_series:<20}')
+    print(f'  {"Div Delta:":<20}{args.retrieval_diversity_delta:<20}{"Div Mult:":<20}{args.retrieval_diversity_mult:<20}')
+    print(f'  {"Benefit Scorer:":<20}{args.use_benefit_scorer:<20}{"Benefit Warmup:":<20}{args.benefit_base_epochs:<20}')
+    print(f'  {"Benefit Bsz:":<20}{args.benefit_scorer_batch_size:<20}{"Benefit Ridge:":<20}{args.benefit_scorer_ridge:<20}')
+    print()
+
+    print("\033[1m" + "Optimization" + "\033[0m")
+    print(f'  {"Num Workers:":<20}{args.num_workers:<20}{"Train Epochs:":<20}{args.train_epochs:<20}')
+    print(f'  {"Batch Size:":<20}{args.batch_size:<20}{"Learning Rate:":<20}{args.learning_rate:<20}')
+    print(f'  {"Lradj:":<20}{args.lradj:<20}{"Use Amp:":<20}{args.use_amp:<20}')
+    print()
+
+    print("\033[1m" + "Device" + "\033[0m")
+    print(f'  {"Use GPU:":<20}{args.use_gpu:<20}{"GPU:":<20}{args.gpu:<20}')
+    print(f'  {"Use Multi GPU:":<20}{args.use_multi_gpu:<20}{"Devices:":<20}{args.devices:<20}')
+    print()
