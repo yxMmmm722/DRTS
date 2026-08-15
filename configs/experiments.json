@@ -1,0 +1,226 @@
+{
+  "defaults": {
+    "is_training": 1,
+    "features": "M",
+    "target": "OT",
+    "train_epochs": 10,
+    "batch_size": 32,
+    "n_period": 1,
+    "decomp_kernel": 25,
+    "seasonal_kernel": 8,
+    "component_weights": "0.4,0.4,0.2",
+    "spatial_top_m": 3
+  },
+  "datasets": {
+    "ETTh1": {
+      "data": "ETTh1",
+      "root_path": "./data/ETT/",
+      "data_path": "ETTh1.csv",
+      "enc_in": 7,
+      "freq": "h",
+      "stl_period": 24,
+      "settings": {
+        "96": {
+          "seq_len": 336,
+          "learning_rate": 0.001,
+          "topm": 20
+        },
+        "192": {
+          "seq_len": 336,
+          "learning_rate": 0.01,
+          "topm": 20
+        },
+        "336": {
+          "seq_len": 720,
+          "learning_rate": 0.01,
+          "topm": 20
+        },
+        "720": {
+          "seq_len": 720,
+          "learning_rate": 0.001,
+          "topm": 10
+        }
+      }
+    },
+    "ETTh2": {
+      "data": "ETTh2",
+      "root_path": "./data/ETT/",
+      "data_path": "ETTh2.csv",
+      "enc_in": 7,
+      "freq": "h",
+      "stl_period": 24,
+      "settings": {
+        "96": {
+          "seq_len": 336,
+          "learning_rate": 0.01,
+          "topm": 20
+        },
+        "192": {
+          "seq_len": 720,
+          "learning_rate": 0.001,
+          "topm": 5
+        },
+        "336": {
+          "seq_len": 720,
+          "learning_rate": 0.001,
+          "topm": 5
+        },
+        "720": {
+          "seq_len": 720,
+          "learning_rate": 0.001,
+          "topm": 20
+        }
+      }
+    },
+    "ETTm1": {
+      "data": "ETTm1",
+      "root_path": "./data/ETT/",
+      "data_path": "ETTm1.csv",
+      "enc_in": 7,
+      "freq": "t",
+      "stl_period": 96,
+      "settings": {
+        "96": {
+          "seq_len": 336,
+          "learning_rate": 0.001,
+          "topm": 20
+        },
+        "192": {
+          "seq_len": 336,
+          "learning_rate": 0.01,
+          "topm": 20
+        },
+        "336": {
+          "seq_len": 336,
+          "learning_rate": 0.001,
+          "topm": 20
+        },
+        "720": {
+          "seq_len": 720,
+          "learning_rate": 0.001,
+          "topm": 20
+        }
+      }
+    },
+    "ETTm2": {
+      "data": "ETTm2",
+      "root_path": "./data/ETT/",
+      "data_path": "ETTm2.csv",
+      "enc_in": 7,
+      "freq": "t",
+      "stl_period": 96,
+      "settings": {
+        "96": {
+          "seq_len": 336,
+          "learning_rate": 0.01,
+          "topm": 20
+        },
+        "192": {
+          "seq_len": 336,
+          "learning_rate": 0.001,
+          "topm": 20
+        },
+        "336": {
+          "seq_len": 336,
+          "learning_rate": 0.001,
+          "topm": 20
+        },
+        "720": {
+          "seq_len": 720,
+          "learning_rate": 0.001,
+          "topm": 10
+        }
+      }
+    },
+    "Electricity": {
+      "data": "custom",
+      "root_path": "./data/electricity/",
+      "data_path": "electricity.csv",
+      "enc_in": 321,
+      "freq": "h",
+      "stl_period": 24,
+      "settings": {
+        "96": {
+          "seq_len": 720,
+          "learning_rate": 0.01,
+          "topm": 1
+        },
+        "192": {
+          "seq_len": 720,
+          "learning_rate": 0.001,
+          "topm": 1
+        },
+        "336": {
+          "seq_len": 720,
+          "learning_rate": 0.001,
+          "topm": 1
+        },
+        "720": {
+          "seq_len": 720,
+          "learning_rate": 0.001,
+          "topm": 1
+        }
+      }
+    },
+    "Traffic": {
+      "data": "custom",
+      "root_path": "./data/traffic/",
+      "data_path": "traffic.csv",
+      "enc_in": 862,
+      "freq": "h",
+      "stl_period": 24,
+      "settings": {
+        "96": {
+          "seq_len": 720,
+          "learning_rate": 0.01,
+          "topm": 1
+        },
+        "192": {
+          "seq_len": 720,
+          "learning_rate": 0.001,
+          "topm": 1
+        },
+        "336": {
+          "seq_len": 720,
+          "learning_rate": 0.001,
+          "topm": 1
+        },
+        "720": {
+          "seq_len": 720,
+          "learning_rate": 0.001,
+          "topm": 1
+        }
+      }
+    },
+    "Weather": {
+      "data": "custom",
+      "root_path": "./data/weather/",
+      "data_path": "weather.csv",
+      "enc_in": 21,
+      "freq": "t",
+      "stl_period": 144,
+      "settings": {
+        "96": {
+          "seq_len": 720,
+          "learning_rate": 0.01,
+          "topm": 20
+        },
+        "192": {
+          "seq_len": 720,
+          "learning_rate": 0.001,
+          "topm": 20
+        },
+        "336": {
+          "seq_len": 720,
+          "learning_rate": 0.001,
+          "topm": 20
+        },
+        "720": {
+          "seq_len": 720,
+          "learning_rate": 0.001,
+          "topm": 20
+        }
+      }
+    }
+  }
+}
