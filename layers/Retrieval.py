@@ -291,7 +291,8 @@ class RetrievalTool():
             self.future_component_mg = None
             self._build_split_component_full_cache(train_data, split_name='train')
             self._build_split_component_full_cache(valid_data, split_name='valid')
-            self._build_split_component_full_cache(test_data, split_name='test')
+            if test_data is not None:
+                print('[STL] test queries use independent window-local decomposition.')
             return
 
         train_query, train_future = self._build_split_component_windows(
@@ -312,12 +313,7 @@ class RetrievalTool():
             self.query_component_mg_by_split['valid'] = valid_query
 
         if test_data is not None:
-            test_query, _ = self._build_split_component_windows(
-                test_data,
-                split_name='test',
-                include_future=False,
-            )
-            self.query_component_mg_by_split['test'] = test_query
+            print('[STL] test queries use independent window-local decomposition.')
     
     def _build_train_self_mask(self, index, bsz, device):
         sliding_index = torch.arange(2 * (self.seq_len + self.pred_len) - 1).to(device)
@@ -748,15 +744,23 @@ class RetrievalTool():
         bsz, seq_len, channels = x.shape
         assert seq_len == self.seq_len and channels == self.channels
 
+        # Test queries must be decomposed after windowing so STL never sees
+        # observations outside the current forecast input window.
+        window_local_query = split_name == 'test'
+
         if self.component_lazy_full_series:
             if 'train' not in self.component_full_mg_by_split:
                 raise RuntimeError('Lazy component full-series banks are not prepared. Call prepare_dataset first.')
         elif self.train_component_mg is None or self.future_component_mg is None:
             raise RuntimeError('Component banks are not prepared. Call prepare_dataset first.')
 
-        query_component_cache = None if self.component_lazy_full_series else self.query_component_mg_by_split.get(split_name)
+        query_component_cache = (
+            None
+            if self.component_lazy_full_series or window_local_query
+            else self.query_component_mg_by_split.get(split_name)
+        )
         x_mg = None
-        if query_component_cache is None and not self.component_lazy_full_series:
+        if window_local_query or (query_component_cache is None and not self.component_lazy_full_series):
             x_mg, _ = self.decompose_mg(x)  # [G, B, S, C]
         self_mask = None
         if train:
@@ -774,7 +778,7 @@ class RetrievalTool():
         lazy_history_chunk = 128
 
         for scale_i in range(self.n_period):
-            if self.component_lazy_full_series:
+            if self.component_lazy_full_series and not window_local_query:
                 query_components = self._slice_lazy_query_components(
                     split_name=split_name,
                     index=index,
